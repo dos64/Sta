@@ -1,0 +1,28 @@
+link:http://www.xuebuyuan.com/286891.html
+
+db_autopwn渗透流程
+
+首先使用nmap扫描目标
+
+命令如下：db_nmap  -T Aggressive -n -o -v ip
+
+查看数据库中目标信息
+
+db_hosts
+
+删除数据库中ip可以使用命令
+
+db_hosts -d ip(_d后不接ip地址删除所有的ip,也可以使用例如192.168.1.102-108来删除102-108的ip，-a是添加数据)
+
+在msf中可以在命令后接help或者-h来获得这个命令的帮助文档，如db_hosts help或者db_hosts -h
+
+db_services用来查看数据库中的主机开放的端口和服务所那些
+
+上述的扫描工作做好以后就可以使用db_autopwn来自动化攻击
+
+命令如下
+
+db_autopwn -t -p -e(自动工具所有的ip)
+
+db_autopwn -t -p -I ip -e(攻击指定的ip主机) 
+
