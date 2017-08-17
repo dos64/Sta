@@ -1,0 +1,85 @@
+Linux下GCC编译过程
+
+
+一 gcc编译过程 :源文件-->预加载-->预加载.i-->编译->汇编代码.S -->目标代码.o -->链接 -->可执行程序
+
+
+1首先是源文件经过预加载变成了.i结尾的文件，可以通过-E这个参数来生成这个中间文件，这里主要是把一些include的头文件和一些宏定义，放到
+
+源文件中。
+
+2从预加载的文件经过编译就会变成汇编语言的文件，这一步可以通过-S这个参数来生成这个中间文件
+
+3从汇编语言的文件通过汇编，就会变成目标代码.o的文件，这一步可以通过-C这个参数来生成这个中间文件
+
+4最后经过链接，生成最终的可执行文件 
+
+
+一 新建了一个hello.c的测试文件
+
+
+#include <stdio.h>
+int main()
+{
+    printf("hellow world\n");
+}
+
+gcc -E hello.c -o hello.i
+
+查看hello.i
+
+加载了很多预编译内容
+extern void funlockfile (FILE *__stream) __attribute__ ((__nothrow__));
+# 938 "/usr/include/stdio.h" 3 4
+
+# 2 "hello.c" 2
+int main()
+{
+    printf("hellow world\n");
+}
+
+上面的代码都是头文件和一些宏的内容，全加载进来了
+
+二 下面我们通过编译生成汇编文件.s 
+
+gcc -S hello.i -o hello.s
+
+查看hello.s
+
+    .file   "hello.c"
+    .section    .rodata
+.LC0:
+    .string "hellow world"
+    .text
+.globl main
+    .type   main, @function
+main:
+    pushl   %ebp
+    movl    %esp, %ebp
+    andl    $-16, %esp
+    subl    $16, %esp
+    movl    $.LC0, (%esp)
+    call    puts
+    leave
+    ret
+    .size   main, .-main
+    .ident  "GCC: (GNU) 4.4.7 20120313 (Red Hat 4.4.7-18)"
+    .section    .note.GNU-stack,"",@progbits
+
+
+看到了我们熟悉的汇编语言
+
+三：我们继续，经过汇编器，生成.o的目标文件
+
+gcc -c hello.s -o hello.o 
+
+查看文件属性
+[root@192 hello]# file hello.o
+hello.o: ELF 32-bit LSB relocatable, Intel 80386, version 1 (SYSV), not stripped
+
+已经成为一个二进制文件
+
+四 :编译成可执行文件：
+gcc hello.o -o hello
+
+当然如果你不想做这么多步骤，直接gcc hello.c -o hello即可完成上面所有的步骤了。
