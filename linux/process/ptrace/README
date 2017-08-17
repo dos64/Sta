@@ -1,0 +1,21 @@
+nm 查看全局静态变量i的地址
+对于 i运行以前就可以确定地址，但是对于 临时变量abc，需要用其他工具查找地址，linux典型内存扫描工具scanmem
+
+[root@192 ptrace]# nm counter |grep i
+0804857c R _IO_stdin_used
+w _Jv_RegisterClasses
+0804852a T __i686.get_pc_thunk.bx
+08049654 d __init_array_end
+08049654 d __init_array_start
+080484c0 T __libc_csu_fini
+080484d0 T __libc_csu_init
+U __libc_start_main@@GLIBC_2.0
+0804855c T _fini
+080482d4 T _init
+0804975c b dtor_idx.5976
+U getpid@@GLIBC_2.0
+08049760 b i.1734
+08048424 T main
+U printf@@GLIBC_2.0
+
+
