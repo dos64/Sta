@@ -1,0 +1,1 @@
+cmd_/home/code/studyinghard/linux/kernel/lkmhide/lkmhide.ko.unsigned := ld -r -m elf_i386 -T /usr/src/kernels/2.6.32-696.6.3.el6.i686/scripts/module-common.lds --build-id -o /home/code/studyinghard/linux/kernel/lkmhide/lkmhide.ko.unsigned /home/code/studyinghard/linux/kernel/lkmhide/lkmhide.o /home/code/studyinghard/linux/kernel/lkmhide/lkmhide.mod.o 
