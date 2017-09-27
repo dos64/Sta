@@ -27,7 +27,7 @@ int main(int argc,char* argv[])
      */
     sendto(sk, packet, 15, 0, (struct sockaddr*)&sll, 120);//
 
-    //sleep(1);//防止发包速率过快 交换机挂了。。断网！
+    //sleep(1); //防止发包速率过快 交换机挂了。。断网！
 }
 return 0;
 }
