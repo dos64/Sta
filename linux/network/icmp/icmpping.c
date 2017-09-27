@@ -74,7 +74,7 @@ for(;;)
     {
         printf("send failed \n");
     }
-    sleep(1);
+    //sleep(1);
 }
 
 }
